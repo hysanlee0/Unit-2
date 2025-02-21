@@ -30,6 +30,7 @@ int L13;
 int L14;
 int carX;
 int carY;
+int spin;
 void setup() { //===========================================================
   size(800, 600, P2D);
   
@@ -60,7 +61,7 @@ void setup() { //===========================================================
   L14 = 780;
   carX = 0;
   carY = 0;
-
+  spin = 0;
   
 } // END SETUP ==========================================================
 void draw() { // ========================================================
@@ -192,6 +193,9 @@ L14 = L14 - 5;
     L9 = 800;
   }
   if (L10 < -40) {
+    L10 = 800;
+  }
+  if (L11 < -40) {
     L11 = 800;
   }
   if (L12 < -40) {
@@ -205,15 +209,24 @@ L14 = L14 - 5;
   }
   //car
   car(carX, carY);
-  if (carX = 0) {
+  if (carX < 300) { 
     carX = carX + 5;
+    carY = carY - 1;
+  } else {
+    carX = 300;
+    carY = -60;
   }
-  if (carX > 400) {
-    carX = carX - 1;
-  }
+  tires(carX, carY, spin);
+  spin = spin + 10;
+  if (carX < 300) {
+    spin = spin + 5;
+ } else {
+   spin = spin + 3;
+ }
 //END DRAW ================================================================
+}
 
-void car(int carX, int carY) {
+void car(int carX, int carY)  {//=============================================
   //car
   pushMatrix();
   translate(carX, carY);
@@ -223,8 +236,37 @@ void car(int carX, int carY) {
   triangle(30, 505, 50, 525, 50, 450);
   fill(75, 229, 247);
   arc(110, 450, 120, 120, radians(180), radians(360));
-  fill(0);
-  ellipse(65, 525, 50, 50);
-  ellipse(165, 525, 50, 50);
   popMatrix();
-} //END CAR ==================================================================
+}
+void tires(int carX, int carY, int spin) {
+  pushMatrix();
+  translate(carX, carY);
+  
+  //left wheel
+  pushMatrix();
+  translate(65, 525);
+  rotate(radians(spin));
+  fill(0);
+  ellipse(0, 0, 50, 50);
+  stroke(255);
+  strokeWeight(5);
+  line(-25, 0, 25, 0);
+  line(0, -25, 0, 25);
+  noStroke();
+  rotate(radians(spin));
+  popMatrix();
+  
+  //right wheel
+  pushMatrix();
+  translate(165, 525);
+  rotate(radians(spin));
+  fill(0);
+  ellipse(0, 0, 50, 50);
+  stroke(255);
+  strokeWeight(5);
+  line(-25, 0, 25, 0);
+  line(0, -25, 0, 25);
+  noStroke();
+  popMatrix();
+  popMatrix();
+  }//END CAR ==================================================================
