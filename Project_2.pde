@@ -28,8 +28,8 @@ int L11;
 int L12;
 int L13;
 int L14;
-int carX;
-int carY;
+int carX, vx5, vx2;
+int carY, vyu;
 int spin;
 void setup() { //===========================================================
   size(800, 600, P2D);
@@ -62,6 +62,9 @@ void setup() { //===========================================================
   carX = 0;
   carY = 0;
   spin = 0;
+  vx5 = 5;
+  vx2 = 2;
+  vyu = 1;
   
 } // END SETUP ==========================================================
 void draw() { // ========================================================
@@ -209,20 +212,24 @@ L14 = L14 - 5;
   }
   //car
   car(carX, carY);
-  if (carX < 300) { 
-    carX = carX + 5;
-    carY = carY - 1;
-  } else {
-    carX = 300;
-    carY = -60;
+  carX = carX + vx5;
+  carY = carY - vyu;
+  if (carX < 100) { 
+    vx5 = 5;
+  }
+  if (carX > 300) {
+    vx5 = -2;
+  }
+  if (carY < -75) {
+    vyu = 0;
   }
   tires(carX, carY, spin);
-  spin = spin + 10;
-  if (carX < 300) {
-    spin = spin + 5;
- } else {
-   spin = spin + 3;
- }
+    if (vx5 > -2) {
+    spin = spin + 15;
+  } else {
+   spin = spin - 5;
+  }
+ 
 //END DRAW ================================================================
 }
 
@@ -246,6 +253,7 @@ void tires(int carX, int carY, int spin) {
   pushMatrix();
   translate(65, 525);
   rotate(radians(spin));
+  
   fill(0);
   ellipse(0, 0, 50, 50);
   stroke(255);
