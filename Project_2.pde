@@ -31,6 +31,16 @@ int L14;
 int carX, vx5, vx2;
 int carY, vyu;
 int spin;
+int counter;
+int skyg;
+int skygr;
+int skygl;
+int skyb;
+int skybr;
+int skybl;
+int skyr;
+int skyrr;
+int skyrl;
 void setup() { //===========================================================
   size(800, 600, P2D);
   
@@ -65,12 +75,48 @@ void setup() { //===========================================================
   vx5 = 5;
   vx2 = 2;
   vyu = 1;
-  
+  counter = 0;
+  skyg = 147;
+  skyb = 157;
+  skyr = 51;
+  skygr = 1;
+  skygl = 1;
+  skybr = 1;
+  skybl = 1;
+  skyrr = 1;
+  skyrl = 1;
 } // END SETUP ==========================================================
 void draw() { // ========================================================
+counter = counter + 1;
   //sky
-  background(3, 173, 255); 
+  background(51, skyg, 157); 
   
+  if (counter < 147) {
+    skyg = skyg + skygr;
+  }
+  if (counter > 147) {
+    skyg = skyg - skygl;
+  }
+  if (counter == 294) {
+    skygl = 0;
+  }
+  if (counter < 51) {
+    skyg = skyr + skyrr;
+  }
+  if (counter > 51) {
+    skyr = skyr - skyrl;
+  }
+  if (counter == 102) {
+    skyrl = 0;
+  }if (counter < 157) {
+    skyb = skyb + skybr;
+  }
+  if (counter > 157) {
+    skyb = skyb - skybl;
+  }
+  if (counter == 314) {
+    counter = 0;
+  }
   //road + ground
   fill (115);
   noStroke();
@@ -79,7 +125,7 @@ void draw() { // ========================================================
   rect (0, 300, 800, 100);
   
   //mountains
-  fill(215);
+  fill(103);
   triangle(M1, 300, M1 + 100, 100, M1 + 200, 300); 
   triangle(M2, 300, M2 + 100, 100, M2 + 200, 300);
   triangle(M3, 300, M3 + 100, 100, M3 + 200, 300);
